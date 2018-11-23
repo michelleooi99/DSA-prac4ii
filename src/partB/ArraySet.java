@@ -10,13 +10,22 @@ package partB;
  * @author Tarc
  */
 public class ArraySet<T> implements Set<T> {
-    private T[] array = (T[])new Comparable[5];
+    private T[] array = (T[])new Object[10];
     private int numberOfEntries = 0;
     
     public boolean add(T newElement){
-        if(!exist(newElement)){
-            
+        boolean success = false;
+        
+        if(isFull()){
+            expandArray();
         }
+        
+        if(!exist(newElement)){
+            numberOfEntries++;
+            success = true;
+        }
+        
+        return success;
     }
     
     public boolean remove(T anElement){
@@ -36,27 +45,55 @@ public class ArraySet<T> implements Set<T> {
         return success;
     }
     
-    public boolean checkSubset(Set anotherSet){
+    public boolean checkSubset(Set set2){
+        boolean isMember = false;
         
+        for(int i = 0; i < set2.getNumberOfEntries(); i++){
+            if(exist((T) set2.get(i)))
+                isMember = true;
+            else
+                isMember = false;
+                break;
+        }
+        
+        return isMember;    
     }
     
-    public void union(Set anotherSet){
-        
+    public void union(Set set2){
+        //loop every item i in set2
+        add(set2.get(i));
     }
     
     public Set intersection(Set anotehrSet){
-        
+        Set newSet = new ArraySet();
+        //similar to checkSubset()
+        //loop item j in set2
+        //if item i exist in array
+        //add item i into newSet
+        return newSet;
+    }
+    
+    public int getNumberOfEntries(){
+        return numberOfEntries;
     }
 
     private boolean exist(T newElement) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     private boolean isEmpty() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     private void shiftToLeft(int i) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+    }
+
+    private boolean isFull() {
+        
+    }
+
+    private void expandArray() {
+        
     }
 }
